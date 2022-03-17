@@ -1,6 +1,6 @@
 
 console.log('PRESTAMOS')
-alert("MUEVE LOS PARAMETROS Monto del Credito, Tasa Interes y Plazo PARA CALCULAR TU CUOTA MENSUAL A PAGAR!!! \n RECUERDA QUE DEBES SER MASYOR DE EDAD PARA SOLICITAR UN CREDITO")
+/* alert("MUEVE LOS PARAMETROS Monto del Credito, Tasa Interes y Plazo PARA CALCULAR TU CUOTA MENSUAL A PAGAR!!! \n RECUERDA QUE DEBES SER MASYOR DE EDAD PARA SOLICITAR UN CREDITO") */
 
 sessionStorage.setItem('fecha',new Date())
 let tasa_interes_EM=0
@@ -110,7 +110,6 @@ class Cada_Periodo {
 	pago_intereses(){
 		this.cobro = anualidadPK() - this.abonos
 	}
-
 }
 
 // Array vacio para utilizar propiedad push y cargarlos con los objetos creados de la funcion cosntructora
@@ -124,15 +123,12 @@ const remover = document.getElementsByClassName('fila')
 const amortizacion = document.querySelector('.resultado')
 const limpiar = document.querySelector('.resetear')
 
-
 let pc_fecha=document.getElementById('storage_fecha')
 let años=document.getElementById('edad')
 let menor_edad=document.getElementById('menor_edad')
 let pc_trabaja=document.getElementById('trabaja')
 let pc_amparo=document.getElementById('amparado')
 let pc_historial=document.getElementById('historial')
-
-
 
 limpiar.onclick = () => {amortizacion.innerText="";
 	for (const element of borrar){
@@ -144,10 +140,9 @@ limpiar.onclick = () => {amortizacion.innerText="";
 	pc_fecha.innerText="FECHA"
 	años.innerText="EDAD"
 	menor_edad.innerText="MENOR DE EDAD"
-	pc_trabaja.innerText ="¿TRABJA?"
+	pc_trabaja.innerText ="¿TRABAJA?"
 	pc_amparo.innerText="¿AMPARADO?"
-	pc_historial.innerText="¿HITORIAL?"
-
+	pc_historial.innerText="¿TIENE HISTORIAL?"
 }
 
 
@@ -159,7 +154,6 @@ function anualidad(){
 		let res=((tasa_interes * Math.pow(( 1 + tasa_interes),Numero_cuotas))/((Math.pow((1+tasa_interes),Numero_cuotas))-1))*monto_prestamo;
 		document.getElementById("resultado_final").innerHTML = formatter.format(res)
 }
-
 
 function plan_amortizacion(){
 	for (let a = 1; a <= años_en_meses(document.getElementById("plazo").value); a++){
@@ -210,7 +204,6 @@ function plan_amortizacion(){
 		}
 	}
 }
-
 
 const calcular = document.getElementById('calculo')
 calcular.onclick = () => {
@@ -314,7 +307,7 @@ calcular.onclick = () => {
 			años.innerText = 'EDAD: '+ sessionStorage.getItem('edad')
 	
 			let menor_edad=document.getElementById('menor_edad')
-			menor_edad.innerText = 'MENOR DE EDAD: NO!'
+			menor_edad.innerText = 'MENOR DE EDAD: SI!'
 	
 			let pc_trabaja=document.getElementById('trabaja')
 			pc_trabaja.innerText = '¿TRABAJA?: '+ sessionStorage.getItem('trabajas')
