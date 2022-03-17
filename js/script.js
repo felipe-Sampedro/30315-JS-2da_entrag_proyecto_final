@@ -123,12 +123,31 @@ const borrar = document.getElementsByTagName('td')
 const remover = document.getElementsByClassName('fila')
 const amortizacion = document.querySelector('.resultado')
 const limpiar = document.querySelector('.resetear')
+
+
+let pc_fecha=document.getElementById('storage_fecha')
+let años=document.getElementById('edad')
+let menor_edad=document.getElementById('menor_edad')
+let pc_trabaja=document.getElementById('trabaja')
+let pc_amparo=document.getElementById('amparado')
+let pc_historial=document.getElementById('historial')
+
+
+
 limpiar.onclick = () => {amortizacion.innerText="";
 	for (const element of borrar){
 		element.innerText=""}
 	for (const e of remover){
 		e.remove()
 	}
+
+	pc_fecha.innerText="FECHA"
+	años.innerText="EDAD"
+	menor_edad.innerText="MENOR DE EDAD"
+	pc_trabaja.innerText ="¿TRABJA?"
+	pc_amparo.innerText="¿AMPARADO?"
+	pc_historial.innerText="¿HITORIAL?"
+
 }
 
 
