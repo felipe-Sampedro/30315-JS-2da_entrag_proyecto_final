@@ -133,7 +133,6 @@ function anualidad(){
 }
 
 
-
 function plan_amortizacion(){
 	for (let a = 1; a <= años_en_meses(document.getElementById("plazo").value); a++){
 
@@ -142,14 +141,34 @@ function plan_amortizacion(){
 		nombre_objeto.abono_capital()			
 		nombre_objeto.pago_intereses()
 //		console.log(`en el mes ${a} se pagaron ${nombre_objeto.abonos} pesos como abono a capital y ${nombre_objeto.cobro} pesos en abono a intereses`)
+		let container = document.getElementById('detalle_pagos')
+		let tr = document.createElement('tr')
+		tr.className= a
+		container.append(tr)
+
+
 		for (let j = 1; j<=5;j++){
 			fil_col = 'tabla'+a+j;
 			clase_rc= 'rc'+a+j 
+/* 			let container = document.getElementById('detalle_pagos') */
+			
+
+			let td = document.createElement('td')
+			td.id=clase_rc
+			td.className= 'linea'+a+j
+			tr.append(td)
+
+/* 			container.innerHTML=`<tr><td class="${clse_rc}"></td></tr>`
+			container.className= a 
+			container.id='registro'+a
+			 */
+/* 			campo=document.getElementById('registro'+a)
+			campo.innerHTML="<td></td>"
+			campo.id=clase_rc */
 			switch(j){
 				case 1:
 					fil_col=document.getElementById(clase_rc)
 					fil_col.innerText = a
-/* 					console.log(a) */
 					break 
 				case 2:
 					fil_col=document.getElementById(clase_rc)
@@ -167,12 +186,11 @@ function plan_amortizacion(){
 					fil_col=document.getElementById(clase_rc)
 					fil_col.innerText = nombre_objeto.cobro
 					break
-					
 			}
-
 		}
 	}
 }
+
 
 const calcular = document.getElementById('calculo')
 calcular.onclick = () => {
@@ -181,7 +199,6 @@ calcular.onclick = () => {
 		anualidad()
 		plan_amortizacion()
 		}
-	
 	else{
 		alert("no tienes edad suficiente para solicitar un credito!!")
 		alert("Te haremos unas preguntas que te ayudaran a sumar puntos para calificar de todas maneras para el credito")
@@ -238,64 +255,8 @@ calcular.onclick = () => {
 			}
 		}
 		if(edad>=18){
-	
 			anualidad()
-	
-			const tabla11 = document.getElementById('rc11')
-			tabla11.innerText= 1
-			const tabla12 = document.getElementById('rc12')
-			tabla12.innerText = resultado1.capitalPK
-			const tabla13 = document.getElementById('rc13')
-			tabla13.innerText = resultado1.capitalPK_1
-			const tabla14 = document.getElementById('rc14')
-			tabla14.innerText = resultado1.abonos
-			const tabla15 = document.getElementById('rc15')
-			tabla15.innerText = resultado1.cobro
-	
-			const tabla21 = document.getElementById('rc21')
-			tabla21.innerText= 2
-			const tabla22 = document.getElementById('rc22')
-			tabla22.innerText = resultado2.capitalPK
-			const tabla23 = document.getElementById('rc23')
-			tabla23.innerText = resultado2.capitalPK_1
-			const tabla24 = document.getElementById('rc24')
-			tabla24.innerText = resultado2.abonos
-			const tabla25 = document.getElementById('rc25')
-			tabla25.innerText = resultado2.cobro
-	
-			const tabla31 = document.getElementById('rc31')
-			tabla31.innerText= 3
-			const tabla32 = document.getElementById('rc32')
-			tabla32.innerText = resultado3.capitalPK
-			const tabla33 = document.getElementById('rc33')
-			tabla33.innerText = resultado3.capitalPK_1
-			const tabla34 = document.getElementById('rc34')
-			tabla34.innerText = resultado3.abonos
-			const tabla35 = document.getElementById('rc35')
-			tabla35.innerText = resultado3.cobro
-	
-			const tabla41 = document.getElementById('rc41')
-			tabla41.innerText= 4
-			const tabla42 = document.getElementById('rc42')
-			tabla42.innerText = resultado4.capitalPK
-			const tabla43 = document.getElementById('rc43')
-			tabla43.innerText = resultado4.capitalPK_1
-			const tabla44 = document.getElementById('rc44')
-			tabla44.innerText = resultado4.abonos
-			const tabla45 = document.getElementById('rc45')
-			tabla45.innerText = resultado4.cobro
-			
-			const tabla51 = document.getElementById('rc51')
-			tabla51.innerText= 5
-			const tabla52 = document.getElementById('rc52')
-			tabla52.innerText = resultado5.capitalPK
-			const tabla53 = document.getElementById('rc53')
-			tabla53.innerText = resultado5.capitalPK_1
-			const tabla54 = document.getElementById('rc54')
-			tabla54.innerText = resultado5.abonos
-			const tabla55 = document.getElementById('rc55')
-			tabla55.innerText = resultado5.cobro
-	
+			plan_amortizacion()	
 		}
 		else{
 			alert("lo sentimos, aunque tienes puntos extras no es suficiente, no podemos darte el credito")
@@ -306,8 +267,6 @@ calcular.onclick = () => {
 } 
 	
 
-
-
 // para mostrar el valor seleccionados en los inputs de rango
 const prestamo = document.querySelector('#prestamo')
 const output = document.querySelector('.prestamo-output')
@@ -317,7 +276,6 @@ output.textContent = prestamo.value
 prestamo.addEventListener('input', function() {
   output.textContent = prestamo.value
 });
-
 
 
 const interes = document.querySelector('#interes')
