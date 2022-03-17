@@ -2,6 +2,7 @@
 console.log('PRESTAMOS')
 alert("MUEVE LOS PARAMETROS Monto del Credito, Tasa Interes y Plazo PARA CALCULAR TU CUOTA MENSUAL A PAGAR!!! \n RECUERDA QUE DEBES SER MASYOR DE EDAD PARA SOLICITAR UN CREDITO")
 
+sessionStorage.setItem('fecha',new Date())
 let tasa_interes_EM=0
 let periodo=0
 
@@ -22,7 +23,11 @@ const formatter = new Intl.NumberFormat('en-US', {
 	currency: 'USD',
 	minimumFractionDigits: 2
   })
-
+  const formatter2 = new Intl.NumberFormat('en-US', {
+	style: 'currency',
+	currency: 'USD',
+	minimumFractionDigits: 0
+  })
 
 //funciones para cada uno de los periodos "k" del credito segun el plazo dado en meses
 
@@ -115,12 +120,16 @@ Plan_pagos.join('--')
 console.log(Plan_pagos)
 
 const borrar = document.getElementsByTagName('td')
+const remover = document.getElementsByClassName('fila')
 const amortizacion = document.querySelector('.resultado')
 const limpiar = document.querySelector('.resetear')
 limpiar.onclick = () => {amortizacion.innerText="";
 	for (const element of borrar){
 		element.innerText=""}
+	for (const e of remover){
+		e.remove()
 	}
+}
 
 
 // funcion principal para calculo de cuota mensual a pagar del credito
@@ -143,28 +152,19 @@ function plan_amortizacion(){
 //		console.log(`en el mes ${a} se pagaron ${nombre_objeto.abonos} pesos como abono a capital y ${nombre_objeto.cobro} pesos en abono a intereses`)
 		let container = document.getElementById('detalle_pagos')
 		let tr = document.createElement('tr')
-		tr.className= a
+		tr.className= `${a} fila` 
 		container.append(tr)
 
 
 		for (let j = 1; j<=5;j++){
 			fil_col = 'tabla'+a+j;
 			clase_rc= 'rc'+a+j 
-/* 			let container = document.getElementById('detalle_pagos') */
-			
 
 			let td = document.createElement('td')
 			td.id=clase_rc
-			td.className= 'linea'+a+j
+			td.className= 'linea'
 			tr.append(td)
 
-/* 			container.innerHTML=`<tr><td class="${clse_rc}"></td></tr>`
-			container.className= a 
-			container.id='registro'+a
-			 */
-/* 			campo=document.getElementById('registro'+a)
-			campo.innerHTML="<td></td>"
-			campo.id=clase_rc */
 			switch(j){
 				case 1:
 					fil_col=document.getElementById(clase_rc)
@@ -172,19 +172,20 @@ function plan_amortizacion(){
 					break 
 				case 2:
 					fil_col=document.getElementById(clase_rc)
-					fil_col.innerText = nombre_objeto.capitalPK
+/* 					fil_col.innerText = nombre_objeto.capitalPK */
+					fil_col.innerText = formatter2.format(nombre_objeto.capitalPK)
 					break
 				case 3:
 					fil_col=document.getElementById(clase_rc)
-					fil_col.innerText = nombre_objeto.capitalPK_1
+					fil_col.innerText = formatter2.format(nombre_objeto.capitalPK_1)
 					break
 				case 4:
 					fil_col=document.getElementById(clase_rc)
-					fil_col.innerText = nombre_objeto.abonos
+					fil_col.innerText = formatter2.format(nombre_objeto.abonos)
 					break
 				case 5:
 					fil_col=document.getElementById(clase_rc)
-					fil_col.innerText = nombre_objeto.cobro
+					fil_col.innerText = formatter2.format(nombre_objeto.cobro)
 					break
 			}
 		}
@@ -195,9 +196,35 @@ function plan_amortizacion(){
 const calcular = document.getElementById('calculo')
 calcular.onclick = () => {
 	edad=parseInt(prompt("cual es tu edad?"))
+	while (isNaN(edad) || edad<=0){
+		alert("La edad ingresada debe ser mayor que cero")
+		edad=parseInt(prompt("cual es tu edad?"))
+	}
+	sessionStorage.setItem('edad',edad)
 	if (edad>=18){
 		anualidad()
 		plan_amortizacion()
+		sessionStorage.setItem('programa', JSON.stringify(Plan_pagos))
+		const programaJson=sessionStorage.getItem('programa')
+		console.log(programaJson)
+		let pc_fecha=document.getElementById('storage_fecha')
+		pc_fecha.innerText = 'FECHA: '+ sessionStorage.getItem('fecha')
+
+		let años=document.getElementById('edad')
+		años.innerText = 'EDAD: '+ sessionStorage.getItem('edad')
+
+		let menor_edad=document.getElementById('menor_edad')
+		menor_edad.innerText = 'MENOR DE EDAD: NO!'
+
+		let pc_trabaja=document.getElementById('trabaja')
+		pc_trabaja.innerText = ''
+
+		let pc_amparo=document.getElementById('amparado')
+		pc_amparo.innerText = ''
+
+		let pc_historial=document.getElementById('historial')
+		pc_historial.innerText = ''
+
 		}
 	else{
 		alert("no tienes edad suficiente para solicitar un credito!!")
@@ -218,6 +245,7 @@ calcular.onclick = () => {
 						console.log(edad)
 						console.log(trabajo)
 					}
+					sessionStorage.setItem('trabajas', trabajo)
 					break
 				case 2:
 					let amparo=0
@@ -233,6 +261,7 @@ calcular.onclick = () => {
 						console.log(edad)
 						console.log(amparo)
 					}
+					sessionStorage.setItem('amparado', amparo)
 					break
 				case 3:
 					let historial=0
@@ -248,6 +277,7 @@ calcular.onclick = () => {
 						console.log(edad)
 						console.log(historial)
 					}
+					sessionStorage.setItem('historial', historial)
 					break
 				}
 			if(edad>=18){
@@ -257,13 +287,29 @@ calcular.onclick = () => {
 		if(edad>=18){
 			anualidad()
 			plan_amortizacion()	
+
+			let pc_fecha=document.getElementById('storage_fecha')
+			pc_fecha.innerText = 'FECHA: '+ sessionStorage.getItem('fecha')
+	
+			let años=document.getElementById('edad')
+			años.innerText = 'EDAD: '+ sessionStorage.getItem('edad')
+	
+			let menor_edad=document.getElementById('menor_edad')
+			menor_edad.innerText = 'MENOR DE EDAD: NO!'
+	
+			let pc_trabaja=document.getElementById('trabaja')
+			pc_trabaja.innerText = '¿TRABAJA?: '+ sessionStorage.getItem('trabajas')
+	
+			let pc_amparo=document.getElementById('amparado')
+			pc_amparo.innerText = '¿AMPARADO?: ' + sessionStorage.getItem('amparado')
+	
+			let pc_historial=document.getElementById('historial')
+			pc_historial.innerText = '¿HISTORIAL?: ' + sessionStorage.getItem('historial')
 		}
 		else{
 			alert("lo sentimos, aunque tienes puntos extras no es suficiente, no podemos darte el credito")
 		}
-	
 	}
-	
 } 
 	
 

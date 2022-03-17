@@ -3,7 +3,6 @@ body{
     background-color: aqua;
 }
 
-
 .cuota{
     border-style: 2x solid black;
     background-color: yellow;
@@ -13,7 +12,7 @@ body{
     align-items: center;
 }
 
-p{
+p.resultado{
     font-size: 40px;
 }
 
@@ -27,30 +26,12 @@ p{
     padding: 0px 35px;
 }
 
-#rc11, #rc12, #rc13, #rc14, #rc15{
+.linea{
     padding: 0px 55px;
 }
 
-#rc21, #rc22, #rc23, #rc24, #rc25{
-    padding: 0px 55px;
-}
-
-#rc31, #rc32, #rc33, #rc34, #rc35{
-    padding: 0px 55px;
-}
-
-#rc41, #rc42, #rc43, #rc44, #rc45{
-    padding: 0px 55px;
-}
-
-#rc51, #rc52, #rc53, #rc54, #rc55{
-    padding: 0px 55px;
-}
-
-#rc61, #rc62, #rc63, #rc64, #rc65{
-    padding: 0px 55px;
-}
-
-#rc71, #rc72, #rc73, #rc74, #rc75{
-    padding: 0px 55px;
-}
+/* 
+.perfil{
+    display: flex;
+    align-items: evenly;
+} */
